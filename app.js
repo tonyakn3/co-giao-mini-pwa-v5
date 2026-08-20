@@ -25,7 +25,7 @@ const MODEL='gemini-3.1-flash-live-preview';
 const VOICE='Aoede';
 const memoryKey='co_giao_mini_memory_v1';
 const apiStorageKey='co_giao_mini_gemini_key';
-const rateStorageKey='co_giao_mini_speech_rate_v5';
+const rateStorageKey='co_giao_mini_speech_rate_v5_3';
 let memory=loadMemory();
 let speechRate=loadSpeechRate();
 
@@ -50,10 +50,10 @@ function setApiKey(v,remember){
 }
 function loadSpeechRate(){
   const n=Number(localStorage.getItem(rateStorageKey)||80);
-  return Math.min(1,Math.max(.5,(Number.isFinite(n)?n:80)/100));
+  return Math.min(1,Math.max(.3,(Number.isFinite(n)?n:80)/100));
 }
 function setSpeechRatePercent(v){
-  const p=Math.min(100,Math.max(50,Math.round(Number(v)/5)*5));
+  const p=Math.min(100,Math.max(30,Math.round(Number(v)/5)*5));
   speechRate=p/100;
   localStorage.setItem(rateStorageKey,String(p));
   speechRateInput.value=String(p);
@@ -95,7 +95,9 @@ function stopPlayback(){
 }
 function naturalPaceInstruction(){
   const p=Math.round(speechRate*100);
-  if(p<=55)return `VERY SLOW child-directed speech. Aim for roughly half the information rate of normal conversation by using tiny sentences and clear pauses between 2–4 word chunks. Keep every phoneme natural. NEVER stretch vowels, syllables, or words like slow-motion audio.`;
+  if(p<=35)return `EXTREMELY SLOW child-directed speech. Use tiny 1–3 word chunks. Pause clearly between chunks. Prefer one very short sentence at a time. Keep pronunciation fully natural. NEVER stretch vowels, syllables, or words. NEVER imitate slow-motion audio.`;
+  if(p<=45)return `VERY SLOW child-directed speech. Use 2–4 word chunks with clear natural pauses between chunks. Keep sentences tiny and pronunciation natural. Never drag sounds.`;
+  if(p<=55)return `VERY SLOW speech for a six-year-old. Use tiny sentences and clear pauses between 2–4 word chunks. Keep every phoneme natural. Never elongate words.`;
   if(p<=65)return `SLOW child-directed speech. Use short 3–6 word chunks with a small natural pause between chunks. Pronounce clearly. Do not drag vowels or sounds.`;
   if(p<=75)return `CLEARLY SLOW speech for a six-year-old. Use short phrases, gentle pauses, and unhurried articulation while keeping the voice fully natural.`;
   if(p<=85)return `GENTLY SLOW, calm speech for a six-year-old. Use natural pauses and short sentences.`;

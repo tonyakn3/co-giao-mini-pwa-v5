@@ -1,5 +1,5 @@
-const CACHE='co-giao-mini-v5.2-natural-voice';
-const ASSETS=['./','./index.html','./styles.css?v=5.2.2','./app.js?v=5.2.2','./manifest.webmanifest','./mimi-full.jpg','./icon-192.png','./icon-512.png','./apple-touch-icon.png'];
+const CACHE='co-giao-mini-v5.3-natural-voice';
+const ASSETS=['./','./index.html','./styles.css?v=5.3.2','./app.js?v=5.3.2','./manifest.webmanifest','./mimi-full.jpg','./icon-192.png','./icon-512.png','./apple-touch-icon.png'];
 self.addEventListener('install',e=>{self.skipWaiting();e.waitUntil(caches.open(CACHE).then(c=>c.addAll(ASSETS)))});
 self.addEventListener('activate',e=>e.waitUntil(Promise.all([
   caches.keys().then(keys=>Promise.all(keys.filter(k=>k!==CACHE).map(k=>caches.delete(k)))),

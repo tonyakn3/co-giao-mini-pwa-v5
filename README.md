@@ -1,4 +1,4 @@
-# Cô Giáo Mini PWA v5.2
+# Cô Giáo Mini PWA v5.3
 
 Bản mới nhất chạy trực tiếp trên Safari iPhone/iPad và có thể **Add to Home Screen**.
 
@@ -32,6 +32,15 @@ API key không nằm trong source GitHub. Key được nhập trên thiết bị
 
 ## Lưu ý tốc độ giọng trên Safari
 PWA nhận PCM realtime từ Gemini và điều chỉnh tốc độ playback bằng Web Audio. Ở mức rất chậm (đặc biệt 50–60%), cao độ có thể thấp hơn một chút. Prompt cũng yêu cầu Mini nói chậm, rõ và dùng câu ngắn để giảm nhu cầu kéo playback quá thấp.
+
+
+## Fix v5.3 — tốc độ 30–100%
+
+- Slider nhịp nói mở rộng từ **30% đến 100%**, bước 5%.
+- Mặc định vẫn là **80%**.
+- 30–45% dùng cụm cực ngắn và khoảng nghỉ rõ.
+- Audio vẫn luôn phát ở **100% playbackRate**, nên không có hiệu ứng robot/slow-motion.
+- Thay đổi tốc độ áp dụng từ phiên nói tiếp theo.
 
 
 ## Fix giọng nói v5.2

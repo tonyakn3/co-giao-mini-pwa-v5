@@ -10,7 +10,7 @@
   <meta name="format-detection" content="telephone=no">
   <link rel="manifest" href="./manifest.webmanifest">
   <link rel="apple-touch-icon" href="./apple-touch-icon.png">
-  <link rel="stylesheet" href="./styles.css?v=5.2.2">
+  <link rel="stylesheet" href="./styles.css?v=5.3.2">
   <title>Cô Giáo Mini</title>
 </head>
 <body>
@@ -18,7 +18,7 @@
     <header class="topbar">
       <div>
         <div class="brand">Cô Giáo Mini ♡</div>
-        <div class="sub">English Teacher · PWA v5.2</div>
+        <div class="sub">English Teacher · PWA v5.3</div>
       </div>
       <button id="settingsBtn" class="icon-btn" aria-label="Cài đặt">⚙️</button>
     </header>
@@ -51,9 +51,9 @@
       <h2>Cài đặt</h2>
 
       <label for="speechRate">Nhịp nói tự nhiên: <b id="speechRateValue">80%</b></label>
-      <input id="speechRate" class="range" type="range" min="50" max="100" step="5" value="80">
-      <div class="range-labels"><span>50% rất chậm</span><span>100% bình thường</span></div>
-      <p class="note">Mặc định 80%. Slider này không slow-motion audio; nó yêu cầu AI nói chậm tự nhiên bằng câu ngắn và khoảng nghỉ. Thay đổi áp dụng ở phiên nói tiếp theo.</p>
+      <input id="speechRate" class="range" type="range" min="30" max="100" step="5" value="80">
+      <div class="range-labels"><span>30% cực chậm</span><span>100% bình thường</span></div>
+      <p class="note">Mặc định 80%. Có thể hạ tới 30%. Slider này không slow-motion audio; nó yêu cầu AI nói chậm tự nhiên bằng cụm ngắn và khoảng nghỉ. Thay đổi áp dụng ở phiên nói tiếp theo.</p>
 
       <p class="note"><b>Voice:</b> Aoede · giọng nữ nhẹ. Persona: cô giáo nữ Việt Nam.</p>
 
@@ -73,6 +73,6 @@
     </form>
   </dialog>
 
-  <script src="./app.js?v=5.2.2" type="module"></script>
+  <script src="./app.js?v=5.3.2" type="module"></script>
 </body>
 </html>
