@@ -1,4 +1,4 @@
-# Cô Giáo Mini PWA v5
+# Cô Giáo Mini PWA v5.1
 
 Bản mới nhất chạy trực tiếp trên Safari iPhone/iPad và có thể **Add to Home Screen**.
 
@@ -32,3 +32,8 @@ API key không nằm trong source GitHub. Key được nhập trên thiết bị
 
 ## Lưu ý tốc độ giọng trên Safari
 PWA nhận PCM realtime từ Gemini và điều chỉnh tốc độ playback bằng Web Audio. Ở mức rất chậm (đặc biệt 50–60%), cao độ có thể thấp hơn một chút. Prompt cũng yêu cầu Mini nói chậm, rõ và dùng câu ngắn để giảm nhu cầu kéo playback quá thấp.
+
+
+## Fix v5.1
+- Ephemeral token: thử `liveConnectConstraints` trước; nếu API deployment trả `Unknown name liveConnectConstraints`, tự fallback sang token cơ bản.
+- Bump service-worker/cache version để Safari nhận code mới.

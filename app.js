@@ -174,7 +174,23 @@ For danger, injury, or emergencies, tell the child to get a trusted adult immedi
 async function mintToken(apiKey){
   const expire=new Date(Date.now()+30*60*1000).toISOString();
   const newSessionExpire=new Date(Date.now()+60*1000).toISOString();
-  const body={
+  const url='https://generativelanguage.googleapis.com/v1beta/auth_tokens';
+
+  async function createToken(body){
+    const r=await fetch(url,{
+      method:'POST',
+      headers:{'x-goog-api-key':apiKey,'Content-Type':'application/json'},
+      body:JSON.stringify(body)
+    });
+    const x=await r.json().catch(()=>({}));
+    return {r,x};
+  }
+
+  // Newer Gemini API deployments support locking an ephemeral token to
+  // Live configuration. Some projects/rollouts still reject that field.
+  // Try the stronger form first, then gracefully fall back to the basic
+  // ephemeral-token request documented by Google.
+  const constrained={
     uses:1,
     expireTime:expire,
     newSessionExpireTime:newSessionExpire,
@@ -183,11 +199,22 @@ async function mintToken(apiKey){
       config:{sessionResumption:{},responseModalities:['AUDIO']}
     }
   };
-  const r=await fetch('https://generativelanguage.googleapis.com/v1beta/auth_tokens',{
-    method:'POST',headers:{'x-goog-api-key':apiKey,'Content-Type':'application/json'},
-    body:JSON.stringify(body)
-  });
-  const x=await r.json();
+
+  let {r,x}=await createToken(constrained);
+
+  const details=JSON.stringify(x||{});
+  const unsupportedConstraints = !r.ok &&
+    (details.includes('liveConnectConstraints') || details.includes('live_connect_constraints')) &&
+    (r.status===400 || r.status===422);
+
+  if(unsupportedConstraints){
+    ({r,x}=await createToken({
+      uses:1,
+      expireTime:expire,
+      newSessionExpireTime:newSessionExpire
+    }));
+  }
+
   if(!r.ok)throw new Error(`Gemini token HTTP ${r.status}: ${JSON.stringify(x)}`);
   if(!x.name)throw new Error('Gemini không trả ephemeral token.');
   return x.name;
