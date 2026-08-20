@@ -22,7 +22,7 @@ let reconnecting=false,shouldStayConnected=false,startedOnce=false;
 const scheduledNodes=new Set();
 
 const MODEL='gemini-3.1-flash-live-preview';
-const VOICE='Kore';
+const VOICE='Aoede';
 const memoryKey='co_giao_mini_memory_v1';
 const apiStorageKey='co_giao_mini_gemini_key';
 const rateStorageKey='co_giao_mini_speech_rate_v5';
@@ -84,15 +84,25 @@ function playPCM24(base64){
   const bytes=fromB64(base64),pcm=new Int16Array(bytes.buffer,bytes.byteOffset,Math.floor(bytes.byteLength/2));
   const floats=new Float32Array(pcm.length);for(let i=0;i<pcm.length;i++)floats[i]=pcm[i]/32768;
   const buf=audioCtx.createBuffer(1,floats.length,24000);buf.copyToChannel(floats,0);
-  const node=audioCtx.createBufferSource();node.buffer=buf;node.playbackRate.value=speechRate;node.connect(audioCtx.destination);
+  const node=audioCtx.createBufferSource();node.buffer=buf;node.playbackRate.value=1;node.connect(audioCtx.destination);
   node.onended=()=>scheduledNodes.delete(node);scheduledNodes.add(node);
   const now=audioCtx.currentTime;if(playTime<now)playTime=now;
-  node.start(playTime);playTime+=buf.duration/speechRate;setState('speaking');
+  node.start(playTime);playTime+=buf.duration;setState('speaking');
 }
 function stopPlayback(){
   for(const n of scheduledNodes){try{n.stop()}catch{}}
   scheduledNodes.clear();playTime=audioCtx?.currentTime||0;
 }
+function naturalPaceInstruction(){
+  const p=Math.round(speechRate*100);
+  if(p<=55)return `VERY SLOW child-directed speech. Aim for roughly half the information rate of normal conversation by using tiny sentences and clear pauses between 2–4 word chunks. Keep every phoneme natural. NEVER stretch vowels, syllables, or words like slow-motion audio.`;
+  if(p<=65)return `SLOW child-directed speech. Use short 3–6 word chunks with a small natural pause between chunks. Pronounce clearly. Do not drag vowels or sounds.`;
+  if(p<=75)return `CLEARLY SLOW speech for a six-year-old. Use short phrases, gentle pauses, and unhurried articulation while keeping the voice fully natural.`;
+  if(p<=85)return `GENTLY SLOW, calm speech for a six-year-old. Use natural pauses and short sentences.`;
+  if(p<=95)return `SLIGHTLY SLOWER than normal conversation, clear and calm.`;
+  return `Natural conversational pace, still clear and child-friendly.`;
+}
+
 function teacherPrompt(){
 return `You are Mini, the AI speaking partner and English teacher in "Cô Giáo Mini", for a Vietnamese child age 6 named ${childName()}.
 
@@ -105,9 +115,21 @@ Usually 5–20 spoken words total.
 Ask at most ONE easy question, and only when a question naturally helps the conversation.
 Silence is allowed. Do not fill every pause.
 
+VOICE PERSONA:
+- You sound like a warm young adult VIETNAMESE WOMAN who teaches a six-year-old.
+- Keep a gentle feminine tone: kind, calm, bright, never booming, stern, or masculine.
+- When speaking Vietnamese, use natural Vietnamese pronunciation.
+- When speaking English, use very clear international English that is easy for a Vietnamese child to imitate. A light Vietnamese-friendly character is fine, but NEVER exaggerate an accent.
+- Do not imitate stereotypes.
+
+SPEAKING PACE:
+${naturalPaceInstruction()}
+- The client plays audio at ORIGINAL speed. Therefore YOU must create the slower pace naturally through shorter phrases, breathing room, and pauses.
+- Never create a slow-motion effect by elongating sounds.
+- If teaching one new word, say the word naturally, pause briefly, then give at most one short model phrase.
+
 SPEAKING STYLE:
-- Speak slowly, clearly, warmly, and with short chunks suitable for a six-year-old.
-- The app may also slow playback, so keep pronunciation natural and do not drag individual sounds unnaturally.
+- Speak clearly, warmly, and in short chunks suitable for a six-year-old.
 - Use simple vocabulary and concrete examples.
 - Never give long lists unless the child explicitly asks.
 
