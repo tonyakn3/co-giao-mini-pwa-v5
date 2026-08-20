@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,user-scalable=no">
+  <meta name="theme-color" content="#f25486">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-title" content="Cô Giáo Mini">
+  <meta name="format-detection" content="telephone=no">
+  <link rel="manifest" href="./manifest.webmanifest">
+  <link rel="apple-touch-icon" href="./apple-touch-icon.png">
+  <link rel="stylesheet" href="./styles.css?v=5">
+  <title>Cô Giáo Mini</title>
+</head>
+<body>
+  <main class="app">
+    <header class="topbar">
+      <div>
+        <div class="brand">Cô Giáo Mini ♡</div>
+        <div class="sub">English Teacher · PWA v5</div>
+      </div>
+      <button id="settingsBtn" class="icon-btn" aria-label="Cài đặt">⚙️</button>
+    </header>
+
+    <section class="caption-card" aria-live="polite">
+      <div id="captionSpeaker" class="caption-speaker">Cô Giáo Mini</div>
+      <div id="captionText" class="caption-text">Hello!</div>
+    </section>
+
+    <section class="teacher-card">
+      <img src="./mimi-full.jpg" alt="Cô Giáo Mini" class="teacher-image">
+      <div id="stateBadge" class="state-badge">Sẵn sàng</div>
+    </section>
+
+    <section id="errorBox" class="error hidden"></section>
+
+    <section class="controls">
+      <button id="talkBtn" class="primary">🎤 Nói với Cô Giáo Mini</button>
+      <div class="secondary-row">
+        <button id="muteBtn" class="secondary" disabled>Mic: On</button>
+        <button id="endBtn" class="secondary danger" disabled>End</button>
+      </div>
+    </section>
+
+    <section class="install-tip">Safari → Share → <b>Add to Home Screen</b></section>
+  </main>
+
+  <dialog id="settingsDialog">
+    <form method="dialog" class="settings">
+      <h2>Cài đặt</h2>
+
+      <label for="speechRate">Tốc độ giọng: <b id="speechRateValue">80%</b></label>
+      <input id="speechRate" class="range" type="range" min="50" max="100" step="5" value="80">
+      <div class="range-labels"><span>50% chậm</span><span>100% bình thường</span></div>
+      <p class="note">Mặc định 80%. Trên Safari, giảm tốc độ playback có thể làm cao độ giọng thay đổi nhẹ.</p>
+
+      <label>Gemini API key</label>
+      <input id="apiKeyInput" type="password" autocomplete="off" placeholder="AIza…">
+      <label class="check-row">
+        <input id="rememberKey" type="checkbox">
+        Nhớ API key trên thiết bị này
+      </label>
+      <p class="note">Key không nằm trong source GitHub. Nếu chọn “Nhớ”, key được lưu trong trình duyệt trên thiết bị này.</p>
+
+      <div class="dialog-actions">
+        <button id="deleteKeyBtn" type="button" class="secondary danger">Xóa key</button>
+        <button id="saveKeyBtn" type="button" class="primary small">Lưu</button>
+      </div>
+      <button class="close-btn">Đóng</button>
+    </form>
+  </dialog>
+
+  <script src="./app.js?v=5" type="module"></script>
+</body>
+</html>

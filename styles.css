@@ -1,0 +1,36 @@
+:root{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:#252525;background:#fff4f8;-webkit-tap-highlight-color:transparent}
+*{box-sizing:border-box}
+html,body{margin:0;min-height:100%;background:#fff4f8}
+body{min-height:100dvh;background:radial-gradient(circle at 15% 8%,rgba(255,187,215,.42),transparent 28%),radial-gradient(circle at 85% 10%,rgba(215,226,255,.36),transparent 30%),linear-gradient(180deg,#fffafc,#fff2f7)}
+button,input{font:inherit}
+.app{width:min(860px,100%);min-height:100dvh;margin:auto;padding:max(14px,env(safe-area-inset-top)) 14px max(20px,env(safe-area-inset-bottom));display:flex;flex-direction:column;gap:12px}
+.topbar{display:flex;align-items:flex-start;justify-content:space-between;gap:12px}
+.brand{font-size:clamp(26px,5vw,36px);font-weight:900;color:#ef4d83;line-height:1}
+.sub{font-size:13px;opacity:.58;margin-top:6px}
+.icon-btn{border:1px solid rgba(0,0,0,.07);background:rgba(255,255,255,.92);border-radius:50%;width:44px;height:44px;font-size:20px;box-shadow:0 6px 20px rgba(55,35,45,.06)}
+.caption-card{background:rgba(255,255,255,.95);border:2px solid rgba(239,77,131,.22);border-radius:22px;padding:13px 16px 15px;min-height:82px;box-shadow:0 10px 28px rgba(85,45,62,.09)}
+.caption-speaker{font-size:12px;font-weight:900;color:#ed4b81;margin-bottom:4px}
+.caption-text{font-size:clamp(18px,4.6vw,27px);font-weight:800;line-height:1.28;color:#cf3c70}
+.teacher-card{position:relative;overflow:hidden;flex:1;min-height:300px;max-height:62dvh;border-radius:28px;background:#f6e7e4;box-shadow:0 18px 48px rgba(72,45,58,.13)}
+.teacher-image{width:100%;height:100%;object-fit:cover;object-position:center 40%;display:block}
+.state-badge{position:absolute;left:14px;bottom:14px;background:rgba(255,255,255,.91);padding:8px 12px;border-radius:999px;font-size:12px;font-weight:850;color:#df487b}
+.controls{display:grid;gap:9px}
+.primary{border:0;border-radius:23px;background:linear-gradient(135deg,#ff689a,#ec4d82);color:#fff;font-weight:900;font-size:19px;min-height:60px;padding:12px 18px;box-shadow:0 12px 28px rgba(236,77,130,.25)}
+.primary.small{min-height:46px;font-size:16px}
+.secondary-row{display:grid;grid-template-columns:1fr 1fr;gap:9px}
+.secondary{border:1px solid rgba(0,0,0,.08);border-radius:17px;background:#fff;min-height:48px;font-weight:800}
+.danger{color:#c92727}
+button:disabled{opacity:.45}
+.error{padding:11px 13px;border-radius:14px;border:1px solid #ffc2c2;background:#fff0f0;color:#aa2525;font-size:13px;white-space:pre-wrap}
+.hidden{display:none}
+.install-tip{text-align:center;font-size:11px;opacity:.55;padding:3px}
+dialog{border:0;border-radius:24px;padding:0;width:min(92vw,460px);box-shadow:0 24px 80px rgba(0,0,0,.25)}
+dialog::backdrop{background:rgba(30,20,25,.38);backdrop-filter:blur(4px)}
+.settings{padding:22px;display:grid;gap:11px}
+.settings h2{margin:0 0 4px}.settings label{font-size:13px;font-weight:800}
+.settings input[type=password]{width:100%;padding:13px;border:1px solid #ddd;border-radius:13px;font-size:16px}
+.check-row{display:flex;align-items:center;gap:9px}.note{font-size:12px;line-height:1.4;opacity:.62;margin:0}
+.dialog-actions{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:7px}.close-btn{border:0;background:transparent;padding:9px;opacity:.65}
+.range{width:100%;accent-color:#ef4d83}
+.range-labels{display:flex;justify-content:space-between;font-size:11px;opacity:.55;margin-top:-5px}
+@media(min-width:700px){.app{padding-inline:28px}.teacher-card{min-height:430px}}
